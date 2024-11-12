@@ -1,0 +1,71 @@
+body{
+    background-image: url("http://assets3.thrillist.com/v1/image/1302701/size/tl-cover_story_2x/the-25-most-beautiful-college-campuses-in-america");
+padding:50px;
+}
+header{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 50px;
+    padding: 10px;
+    
+}
+.container{
+    background-image: url("http://jcpatriot.com/wp-content/uploads/2016/04/REAL-university-of-florida-pic.jpg");
+    width:400px;
+    height:500px;
+    text-align: center;
+    float:left;
+    margin-left: 200px;
+
+}
+
+.form-group{
+    margin-bottom:30px;
+    }
+.container3{
+  
+        max-width: 600px;
+        margin:0 auto;
+        padding:50px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+
+.container4{
+  
+        max-width: 600px;
+        margin:0 auto;
+        padding:50px;
+        background-image: url("http://jcpatriot.com/wp-content/uploads/2016/04/REAL-university-of-florida-pic.jpg");
+        color: rgb(22, 19, 19);
+        font-size: 20px;
+       text-align: center;
+        height:500px;
+    }
+    .container5{
+        
+        max-width: 400px;
+        margin:0 auto;
+        padding:50px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+    .container6{
+        margin:0 auto;
+        color: white;
+        padding:50px;
+    }
+    .table{
+      background-color: rgb(141, 101, 101);  
+      color: black;
+    }
+    #student{
+        font-size: 40px;
+        text-align: center;
+        color:black;
+    }
+    #login{
+        text-align: center;
+        color: rgb(239, 236, 236);
+        font-size: 20px;
+    
+    }
+    
