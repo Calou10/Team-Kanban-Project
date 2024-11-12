@@ -92,7 +92,7 @@
                     <input type="submit" value="Login" name="admin_login" class="btn btn-primary">
                 </div>
             </form>
-            <div><p>Not registered yet? <a href="admin_register.php">Register Here</a></p></div>
+            
         </div>
         
     </body>
