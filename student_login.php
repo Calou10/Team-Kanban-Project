@@ -1,4 +1,37 @@
-<!-- student_login.php -->
+<?php
+session_start();  // Start session at the very top, before any HTML or output
+
+// Check if the form is submitted
+if (isset($_POST["student_login"])) {
+    $email = $_POST["student_email"];
+    $password = $_POST["student_password"];
+    
+    // Include the database connection
+    require_once "database.php";
+    
+    // Prepare and execute the query to fetch the user by email
+    $sql = "SELECT * FROM user WHERE email = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $user = mysqli_fetch_assoc($result);
+
+    // Verify the password
+    if ($user && password_verify($password, $user["password"])) {
+        // Store the user's email in session
+        $_SESSION["user_email"] = $user["email"];
+        
+        // Redirect to the student page
+        header("Location: student.php");
+        exit();
+    } else {
+        // Display an error message
+        echo "<div class='alert alert-danger'>Invalid student email or password</div>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,29 +46,6 @@
     <h1>ECE Engineering School Paris</h1>
 </header>
 <div class="container">
-    <?php
-    session_start();
-    if (isset($_POST["student_login"])) {
-        $email = $_POST["student_email"];
-        $password = $_POST["student_password"];
-        
-        require_once "database.php";
-        $sql = "SELECT * FROM user WHERE email = ?";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "s", $email);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $user = mysqli_fetch_assoc($result);
-
-        if ($user && password_verify($password, $user["password"])) {
-            $_SESSION["user_email"] = $user["email"];
-            header("Location: student.php");
-            exit();
-        } else {
-            echo "<div class='alert alert-danger'>Invalid student email or password</div>";
-        }
-    }
-    ?>
     <form action="student_login.php" method="post">
         <h3>Student Login</h3>
         <div class="form-group">
