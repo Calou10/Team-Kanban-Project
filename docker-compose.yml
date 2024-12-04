@@ -1,0 +1,36 @@
+
+services:
+  web:
+    build: .
+    container_name: php-apache-app
+    ports:
+      - "8080:80"  # Access the app via http://localhost:8080
+    volumes:
+      - ./public:/var/www/html  # Mount the local 'public' folder into the container
+  
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: test1
+    ports:
+      - "3306:3306"  # Access MySQL via port 3306
+    volumes:
+      - mysql-data:/var/lib/mysql  # Store MySQL data in a Docker volume
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      PMA_HOST: mysql-db  # Connects phpMyAdmin to the MySQL service
+      PMA_PORT: 3306
+    ports:
+      - "8081:80"  # Access phpMyAdmin via http://localhost:8081
+    depends_on:
+      - mysql  # Ensure mysql starts before phpMyAdmin
+
+# Volumes definition for persistent MySQL data
+volumes:
+  mysql-data:
