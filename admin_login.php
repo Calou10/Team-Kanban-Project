@@ -1,4 +1,27 @@
-<!-- admin_login.php -->
+<?php
+session_start(); // Start session at the very top, before any HTML or output
+
+if (isset($_POST["admin_login"])) {
+    $email = $_POST["admin_email"];
+    $password = $_POST["admin_password"];
+    
+    require_once "database.php";
+    $sql = "SELECT * FROM admin WHERE email = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $admin = mysqli_fetch_assoc($result);
+
+    if ($admin && password_verify($password, $admin["password"])) {
+        $_SESSION["admin_email"] = $admin["email"];
+        header("Location: admin.php");
+        exit();
+    } else {
+        echo "<div class='alert alert-danger'>Invalid admin email or password</div>";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,29 +36,6 @@
     <h1>ECE Engineering School Paris</h1>
 </header>
 <div class="container">
-    <?php
-    session_start();
-    if (isset($_POST["admin_login"])) {
-        $email = $_POST["admin_email"];
-        $password = $_POST["admin_password"];
-        
-        require_once "database.php";
-        $sql = "SELECT * FROM admin WHERE email = ?";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "s", $email);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $admin = mysqli_fetch_assoc($result);
-
-        if ($admin && password_verify($password, $admin["password"])) {
-            $_SESSION["admin_email"] = $admin["email"];
-            header("Location: admin.php");
-            exit();
-        } else {
-            echo "<div class='alert alert-danger'>Invalid admin email or password</div>";
-        }
-    }
-    ?>
     <form action="admin_login.php" method="post">
         <h3>Admin Login</h3>
         <div class="form-group">
